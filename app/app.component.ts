@@ -4,8 +4,16 @@ import { Component } from '@angular/core';
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 @Component({
     selector: 'my-app',
-    template: '<h1>Hola mundo con Angular 2 !! NOLILLO2003</h1>'
+    templateUrl: 'app/views/home.html'
 })
 
 // Clase del componente donde irán los datos y funcionalidades
-export class AppComponent { }
+export class AppComponent {
+    public title: string;
+    public description: string;
+
+    constructor(){
+        this.title = 'APP FAVORITOS TITULO';
+        this.description = 'Aplicación web Angular2 SPA para gestionar favoritos';
+    }
+ }

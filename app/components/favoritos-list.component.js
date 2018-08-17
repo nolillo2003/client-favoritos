@@ -10,27 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var favorito_service_1 = require("../services/favorito.service");
 var FavoritosListComponent = /** @class */ (function () {
-    function FavoritosListComponent() {
+    function FavoritosListComponent(favoritoService) {
+        this._favoritoService = favoritoService;
         this.title = 'Listado de marcadores';
-        this.favoritos = ['google.es', 'youtube.es', 'twitter.com', 'mysunbed.es'];
-        this.favoritosVisibles = false;
     }
-    FavoritosListComponent.prototype.showFavoritos = function () {
-        this.favoritosVisibles = true;
-    };
-    FavoritosListComponent.prototype.hideFavoritos = function () {
-        this.favoritosVisibles = false;
-    };
-    FavoritosListComponent.prototype.changeColor = function () {
-        console.log(this.color);
+    FavoritosListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log('FavoritosListComponent cargado!!');
+        this._favoritoService.getFavoritos().subscribe(function (result) {
+            console.log(result);
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
     };
     FavoritosListComponent = __decorate([
         core_1.Component({
             selector: 'favoritos-list',
-            templateUrl: 'app/views/favoritos-list.html'
+            templateUrl: 'app/views/favoritos-list.html',
+            providers: [favorito_service_1.FavoritoService]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [Object])
     ], FavoritosListComponent);
     return FavoritosListComponent;
 }());

@@ -1,31 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { FavoritoService } from '../services/favorito.service';
+import { Favorito } from '../models/favorito';
 
 @Component({
     selector: 'favoritos-list',
-    templateUrl: 'app/views/favoritos-list.html'
+    templateUrl: 'app/views/favoritos-list.html',
+    providers: [FavoritoService]
 })
 
-export class FavoritosListComponent {
+
+export class FavoritosListComponent implements OnInit{
+    private _favoritoService: FavoritoService;    
     public title: string;
-    public favoritos: Array<string>;
-    public favoritosVisibles: boolean;
-    public color: string;
+    public errorMessage;
 
-    constructor() {
+    constructor(favoritoService) {
+        this._favoritoService = favoritoService;
         this.title = 'Listado de marcadores';
-        this.favoritos = ['google.es', 'youtube.es', 'twitter.com', 'mysunbed.es'];
-        this.favoritosVisibles = false;
     }
 
-    showFavoritos() {
-        this.favoritosVisibles = true;
+    ngOnInit(){
+        console.log('FavoritosListComponent cargado!!');
+        this._favoritoService.getFavoritos().subscribe(
+            result => {
+                console.log(result);
+            },
+            error => {
+                this.errorMessage = <any>error;
+
+                if (this.errorMessage != null){
+                    console.log(this.errorMessage);
+                    alert('Error en la petición');
+                }
+            }            
+        );
     }
 
-    hideFavoritos() {
-        this.favoritosVisibles = false;
-    }
 
-    changeColor(){
-        console.log(this.color);
-    }
 }
+

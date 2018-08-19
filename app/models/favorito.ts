@@ -1,11 +1,7 @@
-export class Favorito{
-    public title: string;
-    public description: string;    
-    public url: string;
-
-    constructor(title: string, description: string, url: string){
-        this.title = title;
-        this.description = description;
-        this.url = url;
-    }
+export class Favorito {
+    constructor(
+        public title: string,
+        public description: string,
+        public url: string
+    ) { }
 }

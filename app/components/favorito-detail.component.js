@@ -9,22 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// Importar Component desde el núcleo de Angular
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-require("rxjs/add/operator/map");
-var FavoritoService = /** @class */ (function () {
-    function FavoritoService(_http) {
-        this._http = _http;
-        this.url = 'http://localhost:3678/api/';
+// Decorador component, indicamos en que etiqueta se va a cargar la plantilla
+var FavoritoDetailComponent = /** @class */ (function () {
+    function FavoritoDetailComponent() {
     }
-    FavoritoService.prototype.getFavoritos = function () {
-        return this._http.get(this.url + 'favoritos').map(function (res) { return res.json(); });
-    };
-    FavoritoService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], FavoritoService);
-    return FavoritoService;
+    FavoritoDetailComponent = __decorate([
+        core_1.Component({
+            selector: 'favorito-detail',
+            templateUrl: 'app/views/favorito-detail.html'
+        })
+        // Clase del componente donde irán los datos y funcionalidades
+        ,
+        __metadata("design:paramtypes", [])
+    ], FavoritoDetailComponent);
+    return FavoritoDetailComponent;
 }());
-exports.FavoritoService = FavoritoService;
-//# sourceMappingURL=favorito.service.js.map
+exports.FavoritoDetailComponent = FavoritoDetailComponent;
+//# sourceMappingURL=favorito-detail.component.js.map

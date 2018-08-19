@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var favorito_service_1 = require("../services/favorito.service");
 var FavoritosListComponent = /** @class */ (function () {
-    function FavoritosListComponent(favoritoService) {
-        this._favoritoService = favoritoService;
+    function FavoritosListComponent(_favoritoService) {
+        this._favoritoService = _favoritoService;
         this.title = 'Listado de marcadores';
     }
     FavoritosListComponent.prototype.ngOnInit = function () {
@@ -21,6 +21,10 @@ var FavoritosListComponent = /** @class */ (function () {
         console.log('FavoritosListComponent cargado!!');
         this._favoritoService.getFavoritos().subscribe(function (result) {
             console.log(result);
+            _this.favoritos = result.favoritos;
+            if (!_this.favoritos) {
+                alert('Error en la API');
+            }
         }, function (error) {
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
@@ -35,7 +39,7 @@ var FavoritosListComponent = /** @class */ (function () {
             templateUrl: 'app/views/favoritos-list.html',
             providers: [favorito_service_1.FavoritoService]
         }),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [favorito_service_1.FavoritoService])
     ], FavoritosListComponent);
     return FavoritosListComponent;
 }());

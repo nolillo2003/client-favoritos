@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FavoritoService } from '../services/favorito.service';
 import { Favorito } from '../models/favorito';
 
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 @Component({
     selector: 'favoritos-list',
     templateUrl: 'app/views/favoritos-list.html',

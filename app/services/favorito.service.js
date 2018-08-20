@@ -14,11 +14,26 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var FavoritoService = /** @class */ (function () {
     function FavoritoService(_http) {
-        this._http = _http;
         this.url = 'http://localhost:3678/api/';
+        this._http = _http;
     }
+    //Array de Favorito
     FavoritoService.prototype.getFavoritos = function () {
-        return this._http.get(this.url + 'favoritos').map(function (res) { return res.json(); });
+        return this._http.get(this.url + 'favoritos')
+            .map(function (res) { return res.json(); });
+    };
+    //1 Favorito
+    FavoritoService.prototype.getFavorito = function (id) {
+        return this._http.get(this.url + 'favorito/' + id)
+            .map(function (res) { return res.json(); });
+    };
+    //Agregar Favorito
+    FavoritoService.prototype.addFavorito = function (favorito) {
+        var json = JSON.stringify(favorito);
+        var params = json;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        return this._http.post(this.url + 'favorito', params, { 'headers': headers })
+            .map(function (res) { return res.json(); });
     };
     FavoritoService = __decorate([
         core_1.Injectable(),

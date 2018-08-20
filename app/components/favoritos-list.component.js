@@ -15,8 +15,12 @@ var FavoritosListComponent = /** @class */ (function () {
     function FavoritosListComponent(_favoritoService) {
         this._favoritoService = _favoritoService;
         this.title = 'Listado de marcadores';
+        this.loading = true;
     }
     FavoritosListComponent.prototype.ngOnInit = function () {
+        this.getFavoritos();
+    };
+    FavoritosListComponent.prototype.getFavoritos = function () {
         var _this = this;
         console.log('FavoritosListComponent cargado!!');
         this._favoritoService.getFavoritos().subscribe(function (result) {
@@ -25,7 +29,11 @@ var FavoritosListComponent = /** @class */ (function () {
             if (!_this.favoritos) {
                 alert('Error en la API');
             }
+            else {
+                _this.loading = false;
+            }
         }, function (error) {
+            _this.loading = false;
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
                 console.log(_this.errorMessage);

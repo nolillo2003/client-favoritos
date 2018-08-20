@@ -1,13 +1,17 @@
 <header id="header">
    
-    <a href="#">
-        <img src="../../assets/images/angular_logo.png" id="logo"/>
-    </a>
+    
+    <img src="../../assets/images/angular_logo.png" id="logo"/>
+    
 
     <div class="title-subtitle">
-        <h1>{{title}}</h1>
+        <h1 [routerLink]="['/']">{{title}}</h1>
         <p>{{description}}</p>
     </div>
+
+    <a class="btn-add-favorito" [routerLink]="['/crear-marcador']">
+        Crear Favorito
+    </a>
 
     <div class="clearfix"></div>
 </header>

@@ -1,1 +1,8 @@
-<h1>favorito detail component</h1>
+<div class="loading" *ngIf="loading == true">
+    <img src="../../assets/images/loader.gif" />
+</div>
+<div class="favorito-box" *ngIf="favorito">
+    <h1>{{favorito.title}}</h1>
+    <p class="url">{{favorito.url}}</p>
+    <p class="description">{{favorito.description}}</p>
+</div>

@@ -18,6 +18,7 @@ export class FavoritosListComponent implements OnInit {
     private _favoritoService: FavoritoService
     public errorMessage;
     public loading: boolean;
+    public confirmado;
 
     constructor(_favoritoService: FavoritoService) {
         this._favoritoService = _favoritoService;
@@ -53,6 +54,35 @@ export class FavoritosListComponent implements OnInit {
             }
         );        
     }
+
+    onBorrarConfirm(id: string){
+        this.confirmado = id;
+    }
+
+    onCancelarConfirm(){
+        this.confirmado = null;
+    }
+
+    onBorrarFavorito(id: string){
+        this._favoritoService.deleteFavorito(id).subscribe(
+            response => {
+                if (!response.message){
+                    alert('Error en la petición');
+                } else {
+                    this.getFavoritos();                    
+                }
+            },
+            error => {
+                this.errorMessage = <any>error;
+
+                if (this.errorMessage != null) {
+                    console.log(this.errorMessage);
+                    alert('Error en la petición');
+                }                
+            }
+        );
+    }
+    
 
 }
 

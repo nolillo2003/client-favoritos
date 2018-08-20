@@ -41,6 +41,29 @@ var FavoritosListComponent = /** @class */ (function () {
             }
         });
     };
+    FavoritosListComponent.prototype.onBorrarConfirm = function (id) {
+        this.confirmado = id;
+    };
+    FavoritosListComponent.prototype.onCancelarConfirm = function () {
+        this.confirmado = null;
+    };
+    FavoritosListComponent.prototype.onBorrarFavorito = function (id) {
+        var _this = this;
+        this._favoritoService.deleteFavorito(id).subscribe(function (response) {
+            if (!response.message) {
+                alert('Error en la petición');
+            }
+            else {
+                _this.getFavoritos();
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log(_this.errorMessage);
+                alert('Error en la petición');
+            }
+        });
+    };
     FavoritosListComponent = __decorate([
         core_1.Component({
             selector: 'favoritos-list',

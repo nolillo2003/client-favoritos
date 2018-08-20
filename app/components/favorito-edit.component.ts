@@ -6,13 +6,13 @@ import { Favorito } from '../models/favorito';
 
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 @Component({
-    selector: 'favorito-add',
+    selector: 'favorito-edit',
     templateUrl: 'app/views/favorito-add.html',
     providers: [FavoritoService]
 })
 
 // Clase del componente donde irán los datos y funcionalidades
-export class FavoritoAddComponent implements OnInit {
+export class FavoritoEditComponent implements OnInit {
     public _favoritoService: FavoritoService;
     private _route: ActivatedRoute;
     private _router: Router;
@@ -25,17 +25,44 @@ export class FavoritoAddComponent implements OnInit {
         this._favoritoService = _favoritoService;
         this._route = _route;
         this._router = _router;
-        this.titleSection = 'Crear favorito';
+        this.titleSection = 'Editar favorito';
     }
 
     ngOnInit() {
         this.favorito = new Favorito('', '', '', '');
+        this.getFavorito();
         console.table(this.favorito);
     }
 
-    onSubmit() {
+
+    getFavorito() {
+        this._route.params.forEach((params: Params) => {
+            let id = params['id'];
+
+            this._favoritoService.getFavorito(id).subscribe(
+                response => {
+                    console.log(response);
+                    this.favorito = response.favorito;
+
+                    if (!this.favorito) {
+                        this._router.navigate(['/']);
+                    } 
+                },
+                error => {
+                    this.errorMessage = <any>error;
+
+                    if (this.errorMessage != null) {
+                        console.log(this.errorMessage);
+                        alert('Error en la petición');
+                    }
+                }
+            );
+        });
+    }
+
+    onSubmit() {        
         console.table(this.favorito);
-        this._favoritoService.addFavorito(this.favorito).subscribe(
+        this._favoritoService.editFavorito(this.favorito).subscribe(
             response => {
                 if (!response.favorito) {
                     alert('Error en el servidor');
@@ -53,5 +80,6 @@ export class FavoritoAddComponent implements OnInit {
                 }
             }
         );
+        
     }
 }

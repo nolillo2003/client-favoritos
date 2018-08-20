@@ -166,6 +166,16 @@ header #logo{
     margin: 25px;
 }
 
+.seguro{
+    position: absolute;
+    margin-top: -100px;
+    background: white;
+    width: 275px;
+    text-align: justify;
+    color: black;
+
+}
+
 footer{
     width: 80%;
     margin: 0 auto;
